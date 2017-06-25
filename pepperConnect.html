@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<title>pepper controller</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<script type="text/javascript" src="libs/qimessaging/1.0/qimessaging.js"></script>
+<script type="text/javascript" src="libs/qimessaging/1.0/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/qrcode/jquery.qrcode.js"></script>
+<script type="text/javascript" src="js/qrcode/qrcode.js"></script>
+
+<script type="text/javascript" src="js/control.js"></script>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/starter-template.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+    <!--
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+ 	 -->
+      <a class="navbar-brand" href="#">pepper conrtoller</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+    	<!--
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+  -->
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+
+<!--
+<div class="container">
+  <div class="starter-template">
+    <h1>pepperをブラウザから動かせます</h1>
+    <p class="lead">pepperと同じLANにいるときのみ動きます</p>
+  </div>
+</div>
+-->
+
+
+<div class="container">
+<section class = "container">
+
+  <h3>QRCode</h3>
+  <p>Render in canvas</p>
+  <div class="col-xs-12">Socket Server IP Address: <input type="text" class="form-control" id="socketServerIP" /></div>
+  <div class="col-xs-12">Socket Server Port Number: <input type="text" class="form-control" id="socketServerPort" /></div>
+  <div class="col-xs-12"><button onclick="qrCreate()" class="btn btn-primary">QRコード生成</button></div>
+  <div class="col-xs-12" style="padding:30px;"><div id="qrcodeCanvas"></div></div>
+
+
+
+
+	<h3>接続</h3>
+	<div class = "row connectedState">
+		<div class="connected col-xs-9" style="color:red"><span class="connectedText">未接続</span><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+	</div>
+	<div class = "row">
+		<div class="col-xs-12"><label>pepper's IP</label></div>
+		<div class="col-xs-9"><input type="text" class="form-control" id="pepperIP" value="192.168.0.4" /></div>
+		<div class="col-xs-2"><button onclick="connect()" class="btn btn-primary">接続</button></div>
+	</div>
+
+	<h3>音量</h3>
+	<div class = "row">
+		<div class="col-xs-12"><label>今の音量</label></div>
+		<div class="col-xs-9"><input type="text" class="form-control" id="pepperVolume" value="waiting..." /></div>
+		<div class="col-xs-2"><button onclick="changeAudioVolume()" class="btn btn-primary">音量変更</button></div>
+	</div>
+
+
+	<h3>喋らせる</h3>
+
+	<div class = "row">
+		<div class="col-xs-12" >
+			<button onclick="hello()" class="btn btn-default">Hello</button>
+		</div>
+	</div>
+
+	<div class = "row">
+		<div class="col-xs-12"><label>TextMessage</label></div>
+		<div class="col-xs-9" ><input type="text" class="form-control" id="sayText" /></div>
+		<div class="col-xs-2" ><button onclick="say()" class="btn btn-primary">送信</button></div>
+	</div>
+
+	<div class = "row">
+		<div class="col-xs-12"><label>AnimatedMessage</label></div>
+		<div class="col-xs-9" ><input type="text" class="form-control" id="animatedSayText" /></div>
+		<div class="col-xs-2" ><button onclick="animatedSay()" class="btn btn-primary">送信</button></div>
+
+	</div>
+	<div class = "row">
+		<div class="col-xs-12"><span id="helpBlock" class="help-block">Hint:　\vct=50~150\ で声の高さ　\pau=0~\ で待つ</span></div>
+	</div>
+
+	<h3>動かす</h3>
+	<div class = "row">
+    <div class="pad">
+      <div class="control top" onclick="move(2)">
+        <div class="arrow"></div>
+      </div>
+      <div class="control left" onclick="move(0)">
+        <div class="arrow"></div>
+      </div>
+      <div class="control right" onclick="move(1)">
+        <div class="arrow"></div>
+      </div>
+      <div class="control bottom" onclick="move(3)">
+        <div class="arrow"></div>
+      </div>
+      <div class="control middle"></div>
+    </div>
+	</div>
+	<h3>ビヘイビア</h3>
+	<div class = "row">
+		<div class="col-xs-12"><button onclick="action(0)" class="btn btn-danger">ストップ</button></div>
+		<div class="col-xs-4"><button onclick="action(1)" class="btn btn-success">ハイタッチ</button></div>
+		<div class="col-xs-4"><button onclick="action(2)" class="btn btn-success">自己紹介</button></div>
+		<div class="col-xs-4"><button onclick="action(3)" class="btn btn-success">早口言葉</button></div>
+		<div class="col-xs-4"><button onclick="action(4)" class="btn btn-success">笑う</button></div>
+		<div class="col-xs-4"><button onclick="action(5)" class="btn btn-success">泣く</button></div>
+		<div class="col-xs-4"><button onclick="action(8)" class="btn btn-success">嬉しい</button></div>
+		<div class="col-xs-4"><button onclick="action(9)" class="btn btn-success">怒る</button></div>
+		<div class="col-xs-4"><button onclick="action(6)" class="btn btn-success">こっち来い</button></div>
+		<div class="col-xs-4"><button onclick="action(7)" class="btn btn-success">＼(^o^)／</button></div>
+	</div>
+
+  <h3>ALMemory Event</h3>
+	<div class = "row">
+		<div class="col-xs-12" ><button onclick="qimessagingMemoryEvent()" class="btn btn-info">PepperQiMessaging/Hey</button></div>
+		<div class="col-xs-12" >pepper : <span class="memory"></span></div>
+	</div>
+
+	<h3>オートノマスライフ</h3>
+	<div class = "row">
+		<div class="col-xs-6" ><button onclick="autonomousSwitch(true)" class="btn btn-info">autonomous/ON</button></div>
+		<div class="col-xs-6" ><button onclick="autonomousSwitch(false)" class="btn btn-danger">autonomous/OFF</button></div>
+	</div>
+	<h3>Wake up/Sleep</h3>
+	<div class = "row">
+		<div class="col-xs-6" ><button onclick="sleepSwitch(true)" class="btn btn-info">Wake up</button></div>
+		<div class="col-xs-6" ><button onclick="sleepSwitch(false)" class="btn btn-danger">Sleep</button></div>
+	</div>
+
+
+</section>
+</div>
+
+
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+
+
+
+</body>
+
+</html>
