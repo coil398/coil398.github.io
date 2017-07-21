@@ -1,9 +1,16 @@
 const pi = 3.1415926;
 
+//class PepperCon
+
 let pepperCon = {
     qiSession: null,
     alTextToSpeech: null,
-    alMotion: null
+    alSpeechRecognition: null,
+    alAudioDevice: null,
+    alMotion: null,
+    alRobotPosture: null,
+    alTabletService: null,
+    alSystem: null
 };
 
 const connect = (ip) => {
@@ -16,12 +23,48 @@ const connect = (ip) => {
     }
 }
 
+const setVolume = () => {
+    pepperCon.alAudioDevice.getOutputVolume().done((volume) => {
+        currentVolume = volume;
+        console.log(currentVolume);
+        document.getElementById('volume').innerHTML = currentVolume;
+    });
+}
+
+const setLanguage = () => {
+    pepperCon.alTextToSpeech.setLanguage('Japanese');
+    pepperCon.alSpeechRecognition.setLanguage('Japanese');
+    pepperCon.alTextToSpeech.getLanguage().done((res) => {
+        console.log(res);
+    });
+    pepperCon.alSpeechRecognition.getLanguage().done((res) => {
+        console.log(res);
+    });
+}
+
 const setServices = () => {
     pepperCon.qiSession.service('ALTextToSpeech').done((res) => {
         pepperCon.alTextToSpeech = res;
+        pepperCon.qiSession.service('ALSpeechRecognition').done((res) => {
+            pepperCon.alSpeechRecognition = res;
+            setLanguage();
+        });
+    });
+    pepperCon.qiSession.service('ALAudioDevice').done((res) => {
+        pepperCon.alAudioDevice = res;
+        setVolume();
     });
     pepperCon.qiSession.service('ALMotion').done((res) => {
         pepperCon.alMotion = res;
+    });
+    pepperCon.qiSession.service('ALRobotPosture').done((res) => {
+        pepperCon.alRobotPosture = res;
+    });
+    pepperCon.qiSession.service('ALTabletService').done((res) => {
+        pepperCon.alTabletService = res;
+    });
+    pepperCon.qiSession.service('ALSystem').done((res) => {
+        pepperCon.alSystem = res;
     });
 }
 
@@ -35,6 +78,31 @@ const testMethod = () => {
     pepperCon.alTextToSpeech.say('test method');
 }
 
+const tabletHideBtn = document.getElementById('tabletHideBtn');
+tabletHideBtn.addEventListener('click', (e) => {
+    pepperCon.alTabletService.hide();
+});
+
+const rebootBtn = document.getElementById('rebootBtn');
+rebootBtn.addEventListener('click', (e) => {
+    pepperCon.alSystem.reboot();
+});
+
+const shutdownBtn = document.getElementById('shutdownBtn');
+shutdownBtn.addEventListener('click', (e) => {
+    pepperCon.alSystem.shutdown();
+});
+
+const pepperVolumeBtn = document.getElementById('pepperVolumeBtn');
+pepperVolumeBtn.addEventListener('click', (e) => {
+    volume = document.getElementById('pepperVolume').value;
+    console.log(volume);
+    console.log(pepperCon.alAudioDevice.setOutputVolume(+volume).done());
+    pepperCon.alAudioDevice.setOutputVolume(+volume).done(() => {
+        setVolume();
+    });
+});
+
 const pepperIPbtn = document.getElementById('pepperIPBtn');
 pepperIPbtn.addEventListener('click', (e) => {
     pepperCon.qiSession = connect(document.getElementById('pepperIP').value);
@@ -44,6 +112,11 @@ pepperIPbtn.addEventListener('click', (e) => {
         setServices();
         changeStatus();
     }
+});
+
+const stand = document.getElementById('stand');
+stand.addEventListener('click', (e) => {
+        pepperCon.alRobotPosture.goToPosture('Stand', 0.8);
 });
 
 const btn = document.getElementById('btn');
