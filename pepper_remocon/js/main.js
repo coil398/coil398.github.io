@@ -1,7 +1,5 @@
 const pi = 3.1415926;
 
-//class PepperCon
-
 let pepperCon = {
     qiSession: null,
     alTextToSpeech: null,
@@ -89,6 +87,16 @@ const testMethod = () => {
 const tabletHideBtn = document.getElementById('tabletHideBtn');
 tabletHideBtn.addEventListener('click', (e) => {
     pepperCon.alTabletService.hide();
+});
+
+const wakeUp = document.getElementById('wakeUp');
+wakeUp.addEventListener('click', (e) => {
+    pepperCon.alMotion.wakeUp();
+});
+
+const rest = document.getElementById('rest');
+rest.addEventListener('click', (e) => {
+    pepperCon.alMotion.rest();
 });
 
 const autonomousOn = document.getElementById('autonomousOn');
