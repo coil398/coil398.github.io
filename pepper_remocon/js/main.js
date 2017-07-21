@@ -91,14 +91,16 @@ tabletHideBtn.addEventListener('click', (e) => {
     pepperCon.alTabletService.hide();
 });
 
-const rebootBtn = document.getElementById('rebootBtn');
-rebootBtn.addEventListener('click', (e) => {
-    pepperCon.alSystem.reboot();
+const autonomousOn = document.getElementById('autonomousOn');
+autonomousOn.addEventListener('click', (e) => {
+    pepperCon.alBasicAwareness.setEnabled(true);
+    pepperCon.alBackgroundMovement.setEnabled(true);
 });
 
-const shutdownBtn = document.getElementById('shutdownBtn');
-shutdownBtn.addEventListener('click', (e) => {
-    pepperCon.alSystem.shutdown();
+const autonomousOff = document.getElementById('autonomousOff');
+autonomousOff.addEventListener('click', (e) => {
+    pepperCon.alBasicAwareness.setEnabled(false);
+    pepperCon.alBackgroundMovement.setEnabled(false);
 });
 
 const pepperVolumeBtn = document.getElementById('pepperVolumeBtn');
@@ -124,7 +126,7 @@ pepperIPbtn.addEventListener('click', (e) => {
 
 const stand = document.getElementById('stand');
 stand.addEventListener('click', (e) => {
-        pepperCon.alRobotPosture.goToPosture('Stand', 0.8);
+    pepperCon.alRobotPosture.goToPosture('Stand', 0.8);
 });
 
 const btn = document.getElementById('btn');
