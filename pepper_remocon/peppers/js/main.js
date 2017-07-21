@@ -28,7 +28,7 @@ const connect = (ip) => {
 
 const setVolume = () => {
     pepperCon.alAudioDevice.getOutputVolume().done((volume) => {
-        currentVolume = volume;
+        let currentVolume = volume;
         console.log(currentVolume);
         document.getElementById('volume').innerHTML = currentVolume;
     });
@@ -36,7 +36,7 @@ const setVolume = () => {
 
 const setVolume2 = () => {
     pepperCon2.alAudioDevice.getOutputVolume().done((volume) => {
-        currentVolume = volume;
+        let currentVolume = volume;
         console.log(currentVolume);
         document.getElementById('volume2').innerHTML = currentVolume;
     });
