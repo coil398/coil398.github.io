@@ -10,7 +10,9 @@ let pepperCon = {
     alMotion: null,
     alRobotPosture: null,
     alTabletService: null,
-    alSystem: null
+    alSystem: null,
+    alBasicAwareness: null,
+    alBackgroundMovement: null
 };
 
 const connect = (ip) => {
@@ -65,6 +67,12 @@ const setServices = () => {
     });
     pepperCon.qiSession.service('ALSystem').done((res) => {
         pepperCon.alSystem = res;
+    });
+    pepperCon.qiSession.service('ALBasicAwareness').done((res) => {
+        pepperCon.alBasicAwareness = res;
+    });
+    pepperCon.qiSession.service('ALBackgroundMovement').done((res) => {
+        pepperCon.alBackgroundMovement = res;
     });
 }
 
