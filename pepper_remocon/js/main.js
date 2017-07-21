@@ -99,6 +99,16 @@ rest.addEventListener('click', (e) => {
     pepperCon.alMotion.rest();
 });
 
+const shutdown = document.getElementById('shutdown');
+shutdown.addEventListener('click', (e) => {
+    pepperCon.alSystem.shutdown();
+});
+
+const reboot = document.getElementById('reboot');
+reboot.addEventListener('click', (e) => {
+    pepperCon.alSystem.reboot();
+});
+
 const autonomousOn = document.getElementById('autonomousOn');
 autonomousOn.addEventListener('click', (e) => {
     pepperCon.alBasicAwareness.setEnabled(true);
