@@ -74,8 +74,8 @@ const setServices = () => {
     });
 }
 
-const changeStatus = () => {
-    document.getElementById('status').innerHTML = '接続';
+const changeStatus = (status) => {
+    document.getElementById('status').innerHTML = status;
 }
 
 const testMethod = () => {
@@ -87,26 +87,6 @@ const testMethod = () => {
 const tabletHideBtn = document.getElementById('tabletHideBtn');
 tabletHideBtn.addEventListener('click', (e) => {
     pepperCon.alTabletService.hide();
-});
-
-const wakeUp = document.getElementById('wakeUp');
-wakeUp.addEventListener('click', (e) => {
-    pepperCon.alMotion.wakeUp();
-});
-
-const rest = document.getElementById('rest');
-rest.addEventListener('click', (e) => {
-    pepperCon.alMotion.rest();
-});
-
-const shutdown = document.getElementById('shutdown');
-shutdown.addEventListener('click', (e) => {
-    pepperCon.alSystem.shutdown();
-});
-
-const reboot = document.getElementById('reboot');
-reboot.addEventListener('click', (e) => {
-    pepperCon.alSystem.reboot();
 });
 
 const autonomousOn = document.getElementById('autonomousOn');
@@ -135,10 +115,11 @@ const pepperIPbtn = document.getElementById('pepperIPBtn');
 pepperIPbtn.addEventListener('click', (e) => {
     pepperCon.qiSession = connect(document.getElementById('pepperIP').value);
     if(pepperCon.qiSession === null){
+        changeStatus('エラー')
         return 0;
     }else{
         setServices();
-        changeStatus();
+        changeStatus('接続');
     }
 });
 
@@ -169,7 +150,7 @@ moveBackward.addEventListener('click', (e) => {
 
 const moveRightward = document.getElementById('moveRightward');
 moveRightward.addEventListener('click', (e) => {
-        pepperCon.alMotion.moveTo(0, -0.5, 0);
+    pepperCon.alMotion.moveTo(0, -0.5, 0);
 });
 
 const moveLeftward = document.getElementById('moveLeftward');
