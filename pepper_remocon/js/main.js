@@ -105,6 +105,16 @@ autonomousOff.addEventListener('click', (e) => {
     pepperCon.alBackgroundMovement.setEnabled(false);
 });
 
+const wakeup = document.getElementById('wakeup');
+wakeup.addEventListener('click', (e) => {
+    pepperCon.alMotion.wakeUp();
+});
+
+const rest = document.getElementById('rest');
+rest.addEventListener('click', (e) => {
+    pepperCon.alMotion.rest();
+});
+
 const pepperVolumeBtn = document.getElementById('pepperVolumeBtn');
 pepperVolumeBtn.addEventListener('click', (e) => {
     volume = document.getElementById('pepperVolume').value;
