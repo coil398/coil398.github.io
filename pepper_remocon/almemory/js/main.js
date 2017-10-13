@@ -56,15 +56,15 @@ pepperIPbtn.addEventListener('click', (e) => {
 
 const alMemory1 = document.getElementById('alMemory1');
 alMemory1.addEventListener('click', (e) => {
-    pepperCon.alMemory.raiseEvent('almemory1', 1);
+    pepperCon.alMemory.raiseEvent('alMemory1', 1);
 });
 
 const alMemory2 = document.getElementById('alMemory2');
 alMemory2.addEventListener('click', (e) => {
-    pepperCon.alMemory.raiseEvent('almemory2', 1);
+    pepperCon.alMemory.raiseEvent('alMemory2', 1);
 });
 
 const alMemory3 = document.getElementById('alMemory3');
 alMemory3.addEventListener('click', (e) => {
-    pepperCon.alMemory.raiseEvent('almemory3', 1);
+    pepperCon.alMemory.raiseEvent('alMemory3', 1);
 });
