@@ -54,17 +54,17 @@ pepperIPbtn.addEventListener('click', (e) => {
     }
 });
 
-const alMemory1 = document.getElementById('almemory1');
+const alMemory1 = document.getElementById('alMemory1');
 alMemory1.addEventListener('click', (e) => {
     pepperCon.alMemory.raiseEvent('almemory1');
 });
 
-const alMemory2 = document.getElementById('almemory2');
+const alMemory2 = document.getElementById('alMemory2');
 alMemory2.addEventListener('click', (e) => {
     pepperCon.alMemory.raiseEvent('almemory2');
 });
 
-const alMemory3 = document.getElementById('almemory3');
+const alMemory3 = document.getElementById('alMemory3');
 alMemory3.addEventListener('click', (e) => {
     pepperCon.alMemory.raiseEvent('almemory3');
 });
