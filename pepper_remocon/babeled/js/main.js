@@ -1,21 +1,19 @@
 const pi = 3.1415926;
 
-class PepperCon {
-    constructor(){
-        this.qiSession = undefined,
-        this.alTextToSpeech = undefined,
-        this.alSpeechRecognition = undefined,
-        this.alAudioDevice = undefined,
-        this.alMotion = undefined,
-        this.alRobotPosture = undefined,
-        this.alTabletService = undefined,
-        this.alSystem = undefined,
-        this.alBasicAwareness = undefined,
-        this.alBackgroundMovement = undefined
-    }
-};
+//class PepperCon
 
-let pepperCon = new PepperCon();
+let pepperCon = {
+    qiSession: null,
+    alTextToSpeech: null,
+    alSpeechRecognition: null,
+    alAudioDevice: null,
+    alMotion: null,
+    alRobotPosture: null,
+    alTabletService: null,
+    alSystem: null,
+    alBasicAwareness: null,
+    alBackgroundMovement: null
+};
 
 const connect = (ip) => {
     console.log('ip: ' + ip);
@@ -78,8 +76,8 @@ const setServices = () => {
     });
 }
 
-const changeStatus = (status) => {
-    document.getElementById('status').innerHTML = status;
+const changeStatus = () => {
+    document.getElementById('status').innerHTML = '接続';
 }
 
 const testMethod = () => {
@@ -119,11 +117,10 @@ const pepperIPbtn = document.getElementById('pepperIPBtn');
 pepperIPbtn.addEventListener('click', (e) => {
     pepperCon.qiSession = connect(document.getElementById('pepperIP').value);
     if(pepperCon.qiSession === null){
-        changeStatus('エラー')
         return 0;
     }else{
         setServices();
-        changeStatus('接続');
+        changeStatus();
     }
 });
 
@@ -154,7 +151,7 @@ moveBackward.addEventListener('click', (e) => {
 
 const moveRightward = document.getElementById('moveRightward');
 moveRightward.addEventListener('click', (e) => {
-    pepperCon.alMotion.moveTo(0, -0.5, 0);
+        pepperCon.alMotion.moveTo(0, -0.5, 0);
 });
 
 const moveLeftward = document.getElementById('moveLeftward');
